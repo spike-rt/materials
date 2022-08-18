@@ -8,8 +8,9 @@
 ### コードの入手
 以下により，ソースコードをクローンする．
 ```bash
-git clone --recursive https://github.com/spike-rt/spike-rt.git
+git clone git@github.com:spike-rt/spike-rt.git
 cd spike-rt
+git submodule update --init ./external/
 ```
 以下，特に断りの無い限りトップディレクトリが`spike-rt` のディレクトリであるとする．
 
@@ -123,8 +124,14 @@ delay[ms]待つ処理：`mp_hal_delay_ms(delay)` -> `dly_tsk(delay*1000)`
 
 
 ## デバッグ方法
-printfデバッグとUnityによるユニットテストによるデバッグを想定．
-GDBによるデバッグには未対応．
+- printfデバッグとUnityによるユニットテストによるデバッグを想定．
+- GDBによるデバッグには未対応．
+- USB シリアルは，Unityから利用可能
+```c
+TEST_PRINTF("color reflected : h : %u  s : %u v : %u\n", hsv.h, hsv.s, hsv.v);
+
+```
+- Port Fは専用コネクタを接続すれば，syslogから出力可能．
 
 ## Hub/Lightの例
 ### ヘッダファイル
@@ -143,6 +150,8 @@ GDBによるデバッグには未対応．
 ## PUP/UltrasonicSensorの例
 
 
-# タスクの調整
+
+
+# Issueの割当ての調整
 
 以上

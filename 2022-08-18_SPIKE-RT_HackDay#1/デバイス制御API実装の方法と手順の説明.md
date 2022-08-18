@@ -46,7 +46,7 @@ PUPデバイスの接続．
 - HUB Device
   - Display : [Issue #1](https://github.com/spike-rt/spike-rt/issues/1)
   - Button : [Issue #2](https://github.com/spike-rt/spike-rt/issues/2)
-  - IMU(加速度センサ) : [Issue #2](https://github.com/spike-rt/spike-rt/issues/2)
+  - IMU(加速度センサ) : [Issue #3](https://github.com/spike-rt/spike-rt/issues/3)
   - Speaker : [Issue #4](https://github.com/spike-rt/spike-rt/issues/4)
 - PUP Device
   - Motor : [Issue #5](https://github.com/spike-rt/spike-rt/issues/5)
@@ -153,7 +153,16 @@ TEST_PRINTF("color reflected : h : %u  s : %u v : %u\n", hsv.h, hsv.s, hsv.v);
 - 対応するMakefile : [asp3/target/primehub_gcc/drivers/Makefile#L22](https://github.com/spike-rt/spike-rt/blob/main/asp3/target/primehub_gcc/drivers/Makefile#L22)
 
 ## PUP/UltrasonicSensorの例
+### テストコード
+- [test/pup/test_ultrasonicsensor.c](https://github.com/spike-rt/spike-rt/blob/main/test/pup/test_ultrasonicsensor.c)
 
+### API実装
+- Pybricks
+  - [pybricks/pupdevices/pb_type_pupdevices_ultrasonicsensor.c](https://github.com/spike-rt/pybricks-micropython/blob/spike-rt/pybricks/pupdevices/pb_type_pupdevices_ultrasonicsensor.c)
+  - [pybricks/util_pb/pb_device_stm32.c](https://github.com/spike-rt/pybricks-micropython/blob/spike-rt/pybricks/util_pb/pb_device_stm32.c)
+- 移植後
+  - [asp3/target/primehub_gcc/drivers/cbricks/pup/ultrasonicsensor.c](https://github.com/spike-rt/spike-rt/blob/main/asp3/target/primehub_gcc/drivers/cbricks/pup/ultrasonicsensor.c)
+  - [asp3/target/primehub_gcc/drivers/cbricks/pup/pup_device.c](https://github.com/spike-rt/spike-rt/blob/main/asp3/target/primehub_gcc/drivers/cbricks/pup/pup_device.c)
 
 # Issueの割当ての調整
 

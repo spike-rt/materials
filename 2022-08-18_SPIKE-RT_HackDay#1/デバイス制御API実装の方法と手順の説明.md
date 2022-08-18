@@ -30,7 +30,6 @@ cd spike-rt
   - APIは適宜変更しても構わない．また，冗長と思われる場合は全てを実装する必要はない．
 
 ### デバイスリスト
-
 - HUB Device
   - Display : [Issue #1](https://github.com/spike-rt/spike-rt/issues/1)
   - Button : [Issue #2](https://github.com/spike-rt/spike-rt/issues/2)
@@ -89,7 +88,7 @@ delay[ms]待つ処理：`mp_hal_delay_ms(delay)` -> `dly_tsk(delay*1000)`
 
 
 ## コーディングをする上での情報
-[docs/ja/CONTRIBUTING.md](docs/ja/CONTRIBUTING.md)を参照．
+[docs/ja/CONTRIBUTING.md](https://github.com/spike-rt/spike-rt/blob/main/docs/ja/CONTRIBUTING.md)を参照．
 
 ## その他のお願い
 - コーディングスタイル
@@ -137,5 +136,6 @@ GDBによるデバッグには未対応．
 ## PUP/UltrasonicSensorの例
 
 
+# タスクの調整
 
 以上

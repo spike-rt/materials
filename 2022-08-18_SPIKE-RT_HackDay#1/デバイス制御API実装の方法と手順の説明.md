@@ -25,8 +25,13 @@ docker buildx build tools/ -t spike-rt-builder --platform linux/amd64
 ```
 
 ### テスト
-[docs/ja/Test.md](https://github.com/spike-rt/spike-rt/blob/main/docs/ja/Test.md)を参照．
-
+[docs/ja/Test.md](https://github.com/spike-rt/spike-rt/blob/main/docs/ja/Test.md)を参照．  
+#### 補足
+PUPデバイスの接続．
+- Port Aにモーターを接続する．
+- Port Bにフォースセンサを接続する．
+- Port Cに超音波センサを接続する．
+- Port Dにカラーセンサを接続する．
 
 ### 作業タイム
 環境構築&テストの作業タイム（とりあえず10分間）  
@@ -148,8 +153,6 @@ TEST_PRINTF("color reflected : h : %u  s : %u v : %u\n", hsv.h, hsv.s, hsv.v);
 - 対応するMakefile : [asp3/target/primehub_gcc/drivers/Makefile#L22](https://github.com/spike-rt/spike-rt/blob/main/asp3/target/primehub_gcc/drivers/Makefile#L22)
 
 ## PUP/UltrasonicSensorの例
-
-
 
 
 # Issueの割当ての調整

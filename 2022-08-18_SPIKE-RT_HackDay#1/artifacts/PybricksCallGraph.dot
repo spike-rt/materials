@@ -1,0 +1,673 @@
+digraph "Call graph: /ENVZHU_DATA/programing/ertl/lego-spike/spike-rt/gen/call_graph_pybricks/libpybricks.ll" {
+	graph [label="Pybricks Call Graph",
+		rank=same
+	];
+	subgraph clusterpbio {
+		graph [color=blue,
+			label=pbio
+		];
+		pbio_battery	[label=pbio_battery,
+			shape=record];
+		pbio_color	[label=pbio_color,
+			shape=record];
+		pbio_light	[label=pbio_light,
+			shape=record];
+		pbio_color -> pbio_light;
+		pbio_control	[label=pbio_control,
+			shape=record];
+		pbio_count	[label=pbio_count,
+			shape=record];
+		pbio_control -> pbio_count;
+		pbio_logger	[label=pbio_logger,
+			shape=record];
+		pbio_control -> pbio_logger;
+		pbio_math	[label=pbio_math,
+			shape=record];
+		pbio_control -> pbio_math;
+		pbio_rate	[label=pbio_rate,
+			shape=record];
+		pbio_control -> pbio_rate;
+		pbio_trajectory	[label=pbio_trajectory,
+			shape=record];
+		pbio_control -> pbio_trajectory;
+		pbio_dcmotor	[label=pbio_dcmotor,
+			shape=record];
+		pbio_dcmotor -> pbio_battery;
+		pbio_drivebase	[label=pbio_drivebase,
+			shape=record];
+		pbio_drivebase -> pbio_control;
+		pbio_observer	[label=pbio_observer,
+			shape=record];
+		pbio_drivebase -> pbio_observer;
+		pbio_servo	[label=pbio_servo,
+			shape=record];
+		pbio_drivebase -> pbio_servo;
+		pbio_drivebase -> pbio_trajectory;
+		pbio_get	[label=pbio_get,
+			shape=record];
+		pbio_iodev	[label=pbio_iodev,
+			shape=record];
+		pbio_motor	[label=pbio_motor,
+			shape=record];
+		pbio_motor -> pbio_battery;
+		pbio_motor -> pbio_drivebase;
+		pbio_motor -> pbio_servo;
+		pbio_observer -> pbio_math;
+		pbio_pybricks	[label=pbio_pybricks,
+			shape=record];
+		pbio_set	[label=pbio_set,
+			shape=record];
+		pbio_pybricks -> pbio_set;
+		pbio_servo -> pbio_control;
+		pbio_servo -> pbio_dcmotor;
+		pbio_servo -> pbio_logger;
+		pbio_servo -> pbio_observer;
+		pbio_tacho	[label=pbio_tacho,
+			shape=record];
+		pbio_servo -> pbio_tacho;
+		pbio_servo -> pbio_trajectory;
+		pbio_stop	[label=pbio_stop,
+			shape=record];
+		pbio_stop -> pbio_light;
+		pbio_stop -> pbio_motor;
+		pbio_tacho -> pbio_math;
+		pbio_task	[label=pbio_task,
+			shape=record];
+		pbio_trajectory -> pbio_math;
+		pbio_uartdev	[label=pbio_uartdev,
+			shape=record];
+		pbio_uartdev -> pbio_get;
+		pbio_uartdev -> pbio_set;
+		pbio_uuid128	[label=pbio_uuid128,
+			shape=record];
+	}
+	subgraph clusteriodevices {
+		graph [color=blue,
+			label=iodevices
+		];
+		iodevices_PUPDevice	[label=iodevices_PUPDevice,
+			shape=record];
+	}
+	subgraph clusterpbdrv {
+		graph [color=blue,
+			label=pbdrv
+		];
+		pbdrv_adc	[label=pbdrv_adc,
+			shape=record];
+		pbdrv_battery	[label=pbdrv_battery,
+			shape=record];
+		pbdrv_battery -> pbdrv_adc;
+		pbdrv_bluetooth	[label=pbdrv_bluetooth,
+			shape=record];
+		pbdrv_button	[label=pbdrv_button,
+			shape=record];
+		pbdrv_resistor	[label=pbdrv_resistor,
+			shape=record];
+		pbdrv_button -> pbdrv_resistor;
+		pbdrv_charger	[label=pbdrv_charger,
+			shape=record];
+		pbdrv_charger -> pbdrv_adc;
+		pbdrv_pwm	[label=pbdrv_pwm,
+			shape=record];
+		pbdrv_charger -> pbdrv_pwm;
+		pbdrv_clock	[label=pbdrv_clock,
+			shape=record];
+		pbdrv_counter	[label=pbdrv_counter,
+			shape=record];
+		pbdrv_gpio	[label=pbdrv_gpio,
+			shape=record];
+		pbdrv_ioport	[label=pbdrv_ioport,
+			shape=record];
+		pbdrv_motor	[label=pbdrv_motor,
+			shape=record];
+		pbdrv_ioport -> pbdrv_motor;
+		pbdrv_led	[label=pbdrv_led,
+			shape=record];
+		pbdrv_led -> pbdrv_pwm;
+		pbdrv_motor -> pbdrv_gpio;
+		pbdrv_motor -> pbdrv_ioport;
+		pbdrv_motor -> pbdrv_pwm;
+		pbdrv_reset	[label=pbdrv_reset,
+			shape=record];
+		pbdrv_watchdog	[label=pbdrv_watchdog,
+			shape=record];
+		pbdrv_reset -> pbdrv_watchdog;
+		pbdrv_resistor -> pbdrv_adc;
+		pbdrv_sound	[label=pbdrv_sound,
+			shape=record];
+		pbdrv_stm32	[label=pbdrv_stm32,
+			shape=record];
+		pbdrv_timer	[label=pbdrv_timer,
+			shape=record];
+		pbdrv_uart	[label=pbdrv_uart,
+			shape=record];
+	}
+	subgraph clusterpbsys {
+		graph [color=blue,
+			label=pbsys
+		];
+		pbsys_battery	[label=pbsys_battery,
+			shape=record];
+		pbsys_status	[label=pbsys_status,
+			shape=record];
+		pbsys_battery -> pbsys_status;
+		pbsys_bluetooth	[label=pbsys_bluetooth,
+			shape=record];
+		pbsys_bluetooth -> pbsys_status;
+		pbsys_hmi	[label=pbsys_hmi,
+			shape=record];
+		pbsys_hub	[label=pbsys_hub,
+			shape=record];
+		pbsys_hmi -> pbsys_hub;
+		pbsys_hmi -> pbsys_status;
+		pbsys_hub -> pbsys_status;
+		pbsys_io	[label=pbsys_io,
+			shape=record];
+		pbsys_io -> pbsys_status;
+		pbsys_supervisor	[label=pbsys_supervisor,
+			shape=record];
+		pbsys_supervisor -> pbsys_status;
+		pbsys_usb	[label=pbsys_usb,
+			shape=record];
+		pbsys_user	[label=pbsys_user,
+			shape=record];
+		pbsys_user -> pbsys_bluetooth;
+		pbsys_user -> pbsys_status;
+	}
+	subgraph clustercommon {
+		graph [color=blue,
+			label=common
+		];
+		common_ColorLight	[label=common_ColorLight,
+			shape=record];
+		common_Control	[label=common_Control,
+			shape=record];
+		common_Logger	[label=common_Logger,
+			shape=record];
+		common_Control -> common_Logger;
+		common_DCMotor	[label=common_DCMotor,
+			shape=record];
+		common_IMU	[label=common_IMU,
+			shape=record];
+		common_Keypad	[label=common_Keypad,
+			shape=record];
+		common_LightArray	[label=common_LightArray,
+			shape=record];
+		common_Lightmatrix	[label=common_Lightmatrix,
+			shape=record];
+		common_Motor	[label=common_Motor,
+			shape=record];
+		common_Motor -> common_Control;
+		common_Motor -> common_Logger;
+	}
+	subgraph clusterHAL {
+		graph [color=blue,
+			label=HAL
+		];
+		HAL_ADC	[label=HAL_ADC,
+			shape=record];
+		HAL_ADCEx	[label=HAL_ADCEx,
+			shape=record];
+		HAL_ADC -> HAL_ADCEx;
+		HAL_DMA	[label=HAL_DMA,
+			shape=record];
+		HAL_ADC -> HAL_DMA;
+		HAL_GPIO	[label=HAL_GPIO,
+			shape=record];
+		HAL_ADC -> HAL_GPIO;
+		HAL_ADCEx -> HAL_DMA;
+		HAL_DAC	[label=HAL_DAC,
+			shape=record];
+		HAL_DACEx	[label=HAL_DACEx,
+			shape=record];
+		HAL_DAC -> HAL_DACEx;
+		HAL_DAC -> HAL_DMA;
+		HAL_DAC -> HAL_GPIO;
+		HAL_HalfDuplex	[label=HAL_HalfDuplex,
+			shape=record];
+		HAL_UART	[label=HAL_UART,
+			shape=record];
+		HAL_HalfDuplex -> HAL_UART;
+		HAL_I2C	[label=HAL_I2C,
+			shape=record];
+		HAL_I2C -> HAL_DMA;
+		HAL_I2C -> HAL_GPIO;
+		HAL_RCC	[label=HAL_RCC,
+			shape=record];
+		HAL_I2C -> HAL_RCC;
+		HAL_LIN	[label=HAL_LIN,
+			shape=record];
+		HAL_LIN -> HAL_UART;
+		HAL_MultiProcessor	[label=HAL_MultiProcessor,
+			shape=record];
+		HAL_MultiProcessor -> HAL_UART;
+		HAL_NVIC	[label=HAL_NVIC,
+			shape=record];
+		HAL_PCD	[label=HAL_PCD,
+			shape=record];
+		HAL_PCD -> HAL_GPIO;
+		HAL_PCDEx	[label=HAL_PCDEx,
+			shape=record];
+		HAL_PCD -> HAL_PCDEx;
+		HAL_PCD -> HAL_RCC;
+		HAL_RCC -> HAL_GPIO;
+		HAL_SPI	[label=HAL_SPI,
+			shape=record];
+		HAL_SPI -> HAL_DMA;
+		HAL_SPI -> HAL_GPIO;
+		HAL_SYSTICK	[label=HAL_SYSTICK,
+			shape=record];
+		HAL_TIM	[label=HAL_TIM,
+			shape=record];
+		HAL_TIM -> HAL_DMA;
+		HAL_TIMEx	[label=HAL_TIMEx,
+			shape=record];
+		HAL_TIM -> HAL_TIMEx;
+		HAL_TIMEx -> HAL_DMA;
+		HAL_UART -> HAL_DMA;
+		HAL_UART -> HAL_GPIO;
+	}
+	subgraph clusterpupdevices {
+		graph [color=blue,
+			label=pupdevices
+		];
+		pupdevices_ColorDistanceSensor	[label=pupdevices_ColorDistanceSensor,
+			shape=record];
+		pupdevices_ColorLightMatrix	[label=pupdevices_ColorLightMatrix,
+			shape=record];
+		pupdevices_ColorSensor	[label=pupdevices_ColorSensor,
+			shape=record];
+		pupdevices_ForceSensor	[label=pupdevices_ForceSensor,
+			shape=record];
+		pupdevices_InfraredSensor	[label=pupdevices_InfraredSensor,
+			shape=record];
+		pupdevices_Light	[label=pupdevices_Light,
+			shape=record];
+		pupdevices_PFMotor	[label=pupdevices_PFMotor,
+			shape=record];
+		pupdevices_PFMotor -> pupdevices_ColorDistanceSensor;
+		pupdevices_TiltSensor	[label=pupdevices_TiltSensor,
+			shape=record];
+		pupdevices_UltrasonicSensor	[label=pupdevices_UltrasonicSensor,
+			shape=record];
+	}
+	subgraph clusterLL {
+		graph [color=blue,
+			label=LL
+		];
+		LL_APB1	[label=LL_APB1,
+			shape=record];
+		LL_APB2	[label=LL_APB2,
+			shape=record];
+		LL_RCC	[label=LL_RCC,
+			shape=record];
+		LL_USART	[label=LL_USART,
+			shape=record];
+		LL_USART -> LL_APB1;
+		LL_USART -> LL_APB2;
+		LL_USART -> LL_RCC;
+	}
+	ADC	[label=ADC,
+		shape=record];
+	ADC -> HAL_ADC;
+	CDC_Itf	[label=CDC_Itf,
+		shape=record];
+	ringbuf	[label=ringbuf,
+		shape=record];
+	CDC_Itf -> ringbuf;
+	Charger	[label=Charger,
+		shape=record];
+	mp	[label=mp,
+		shape=record];
+	Charger -> mp;
+	Charger -> pbdrv_charger;
+	DAC	[label=DAC,
+		shape=record];
+	DAC -> HAL_DAC;
+	DAC -> HAL_DACEx;
+	DMA	[label=DMA,
+		shape=record];
+	DMA1_Stream5	[label=DMA1_Stream5,
+		shape=record];
+	DMA1_Stream5 -> pbdrv_sound;
+	DMA1_Stream6	[label=DMA1_Stream6,
+		shape=record];
+	DMA1_Stream6 -> pbdrv_bluetooth;
+	DMA1_Stream7	[label=DMA1_Stream7,
+		shape=record];
+	DMA1_Stream7 -> pbdrv_bluetooth;
+	DMA2_Stream0	[label=DMA2_Stream0,
+		shape=record];
+	DMA2_Stream0 -> pbdrv_adc;
+	DMA2_Stream2	[label=DMA2_Stream2,
+		shape=record];
+	DMA2_Stream2 -> pbdrv_pwm;
+	DMA2_Stream3	[label=DMA2_Stream3,
+		shape=record];
+	DMA2_Stream3 -> pbdrv_pwm;
+	HAL_ADC -> ADC;
+	HAL_DMA -> DMA;
+	UART	[label=UART,
+		shape=record];
+	HAL_HalfDuplex -> UART;
+	I2C_Master	[label=I2C_Master,
+		shape=record];
+	HAL_I2C -> I2C_Master;
+	I2C_Slave	[label=I2C_Slave,
+		shape=record];
+	HAL_I2C -> I2C_Slave;
+	HAL_LIN -> UART;
+	HAL_MultiProcessor -> UART;
+	PCD	[label=PCD,
+		shape=record];
+	HAL_PCD -> PCD;
+	USB	[label=USB,
+		shape=record];
+	HAL_PCD -> USB;
+	SPI	[label=SPI,
+		shape=record];
+	HAL_SPI -> SPI;
+	SysTick	[label=SysTick,
+		shape=record];
+	HAL_SYSTICK -> SysTick;
+	TIM	[label=TIM,
+		shape=record];
+	HAL_TIM -> TIM;
+	HAL_TIMEx -> TIM;
+	HAL_UART -> UART;
+	HAL_UART -> pbdrv_bluetooth;
+	I2C_Master -> HAL_I2C;
+	I2C_Slave -> HAL_I2C;
+	RCC	[label=RCC,
+		shape=record];
+	LL_RCC -> RCC;
+	OTG_FS	[label=OTG_FS,
+		shape=record];
+	OTG_FS -> HAL_PCD;
+	PCD -> USB;
+	RCC -> LL_RCC;
+	SPI -> HAL_SPI;
+	SPI -> pbdrv_pwm;
+	SWAPBYTE	[label=SWAPBYTE,
+		shape=record];
+	TIM -> HAL_TIM;
+	TIMEx	[label=TIMEx,
+		shape=record];
+	TIMEx -> HAL_TIMEx;
+	UART -> HAL_RCC;
+	UART -> HAL_UART;
+	UART10	[label=UART10,
+		shape=record];
+	UART10 -> pbdrv_uart;
+	UART4	[label=UART4,
+		shape=record];
+	UART4 -> pbdrv_uart;
+	UART5	[label=UART5,
+		shape=record];
+	UART5 -> pbdrv_uart;
+	UART7	[label=UART7,
+		shape=record];
+	UART7 -> pbdrv_uart;
+	UART8	[label=UART8,
+		shape=record];
+	UART8 -> pbdrv_uart;
+	USART2	[label=USART2,
+		shape=record];
+	USART2 -> pbdrv_bluetooth;
+	USB -> HAL_PCD;
+	USB -> HAL_PCDEx;
+	USB -> SWAPBYTE;
+	battery	[label=battery,
+		shape=record];
+	battery -> mp;
+	battery -> pbdrv_battery;
+	btstack	[label=btstack,
+		shape=record];
+	btstack -> HAL_DMA;
+	btstack -> HAL_NVIC;
+	btstack -> HAL_UART;
+	btstack -> LL_RCC;
+	btstack -> LL_USART;
+	hci	[label=hci,
+		shape=record];
+	btstack -> hci;
+	hid	[label=hid,
+		shape=record];
+	btstack -> hid;
+	btstack -> pbdrv_clock;
+	btstack -> pbdrv_gpio;
+	characteristic	[label=characteristic,
+		shape=record];
+	color_map	[label=color_map,
+		shape=record];
+	color_map -> pbio_color;
+	common_ColorLight -> mp;
+	common_ColorLight -> pbio_color;
+	common_Control -> mp;
+	common_Control -> pbio_control;
+	common_DCMotor -> mp;
+	common_DCMotor -> pbio_battery;
+	common_DCMotor -> pbio_dcmotor;
+	common_DCMotor -> pbio_servo;
+	common_IMU -> mp;
+	common_Keypad -> mp;
+	common_LightArray -> mp;
+	common_Lightmatrix -> mp;
+	common_Lightmatrix -> pbio_light;
+	qstr	[label=qstr,
+		shape=record];
+	common_Lightmatrix -> qstr;
+	common_Motor -> mp;
+	nlr	[label=nlr,
+		shape=record];
+	common_Motor -> nlr;
+	common_Motor -> pbio_battery;
+	common_Motor -> pbio_dcmotor;
+	common_Motor -> pbio_motor;
+	common_Motor -> pbio_servo;
+	common_Motor -> pbio_tacho;
+	device_information	[label=device_information,
+		shape=record];
+	gatt	[label=gatt,
+		shape=record];
+	device_information -> gatt;
+	drivebase_adopt	[label=drivebase_adopt,
+		shape=record];
+	etimer	[label=etimer,
+		shape=record];
+	timer	[label=timer,
+		shape=record];
+	etimer -> timer;
+	ev3_uart	[label=ev3_uart,
+		shape=record];
+	ev3_uart -> pbdrv_uart;
+	ev3_uart -> pbio_iodev;
+	event	[label=event,
+		shape=record];
+	event -> btstack;
+	gap	[label=gap,
+		shape=record];
+	event -> gap;
+	handle_command	[label=handle_command,
+		shape=record];
+	event -> handle_command;
+	handle_event	[label=handle_event,
+		shape=record];
+	event -> handle_event;
+	event -> hci;
+	le_handle	[label=le_handle,
+		shape=record];
+	event -> le_handle;
+	gap -> btstack;
+	gap -> hci;
+	le_device	[label=le_device,
+		shape=record];
+	gap -> le_device;
+	own_address	[label=own_address,
+		shape=record];
+	gap -> own_address;
+	sm	[label=sm,
+		shape=record];
+	gap -> sm;
+	gatt -> btstack;
+	gatt -> characteristic;
+	gatt -> gap;
+	gatt -> hci;
+	l2cap	[label=l2cap,
+		shape=record];
+	gatt -> l2cap;
+	gatt -> sm;
+	handle_command -> btstack;
+	handle_command -> hci;
+	handle_event -> hci;
+	handle_exchange	[label=handle_exchange,
+		shape=record];
+	handle_exchange -> btstack;
+	handle_gatt	[label=handle_gatt,
+		shape=record];
+	handle_gatt -> gap;
+	handle_gatt -> gatt;
+	handle_gatt -> hci;
+	handle_prepare	[label=handle_prepare,
+		shape=record];
+	handle_prepare -> btstack;
+	hci -> btstack;
+	hci -> gap;
+	hid -> btstack;
+	iodevices_PUPDevice -> mp;
+	ioport	[label=ioport,
+		shape=record];
+	ioport -> pbdrv_gpio;
+	l2cap -> btstack;
+	l2cap -> gap;
+	l2cap -> hci;
+	le_handle -> hci;
+	lwp3device	[label=lwp3device,
+		shape=record];
+	lwp3device -> mp;
+	lwp3device -> pbdrv_bluetooth;
+	lwrb	[label=lwrb,
+		shape=record];
+	mp -> nlr;
+	mp -> pbdrv_clock;
+	nordic	[label=nordic,
+		shape=record];
+	nordic -> gatt;
+	nordic -> hci;
+	packet	[label=packet,
+		shape=record];
+	packet -> event;
+	packet -> gap;
+	packet -> gatt;
+	packet -> hci;
+	packet -> pbio_task;
+	packet -> pbio_uuid128;
+	parse_compile	[label=parse_compile,
+		shape=record];
+	parse_compile -> mp;
+	parse_compile -> nlr;
+	pbdrv_adc -> HAL_NVIC;
+	pbdrv_bluetooth -> HAL_DMA;
+	pbdrv_bluetooth -> HAL_UART;
+	pbdrv_bluetooth -> btstack;
+	pbdrv_bluetooth -> device_information;
+	pbdrv_bluetooth -> gap;
+	pbdrv_bluetooth -> gatt;
+	pbdrv_bluetooth -> hci;
+	pbdrv_bluetooth -> l2cap;
+	pbdrv_bluetooth -> le_device;
+	pbdrv_bluetooth -> nordic;
+	pbdrv_bluetooth -> pbio_task;
+	pybricks_service	[label=pybricks_service,
+		shape=record];
+	pbdrv_bluetooth -> pybricks_service;
+	pbdrv_bluetooth -> sm;
+	pbdrv_counter -> pbio_uartdev;
+	pbdrv_led -> pbio_color;
+	pbdrv_pwm -> HAL_DMA;
+	pbdrv_pwm -> HAL_GPIO;
+	pbdrv_pwm -> HAL_NVIC;
+	pbdrv_pwm -> HAL_SPI;
+	pbdrv_sound -> HAL_DAC;
+	pbdrv_sound -> HAL_DMA;
+	pbdrv_sound -> HAL_GPIO;
+	pbdrv_sound -> HAL_NVIC;
+	pbdrv_sound -> HAL_TIM;
+	pbdrv_sound -> HAL_TIMEx;
+	pbdrv_stm32 -> USB;
+	pbdrv_stm32 -> ringbuf;
+	pbdrv_timer -> etimer;
+	pbdrv_uart -> LL_RCC;
+	pbdrv_uart -> LL_USART;
+	pbdrv_uart -> etimer;
+	pbdrv_uart -> ringbuf;
+	pbio_battery -> pbdrv_battery;
+	pbio_dcmotor -> pbdrv_motor;
+	pbio_drivebase -> drivebase_adopt;
+	pbio_drivebase -> pbdrv_clock;
+	pbio_light -> etimer;
+	pbio_light -> timer;
+	pbio_logger -> pbdrv_clock;
+	pbio_servo -> pbdrv_clock;
+	pbio_stop -> pbdrv_ioport;
+	pbio_stop -> pbdrv_sound;
+	pbio_tacho -> pbdrv_counter;
+	pbio_uartdev -> etimer;
+	pbio_uartdev -> ev3_uart;
+	pbio_uartdev -> pbdrv_motor;
+	pbio_uartdev -> pbdrv_uart;
+	pbsys_battery -> pbdrv_battery;
+	pbsys_battery -> pbdrv_clock;
+	pbsys_bluetooth -> etimer;
+	pbsys_bluetooth -> lwrb;
+	pbsys_bluetooth -> pbdrv_bluetooth;
+	pbsys_bluetooth -> pbio_pybricks;
+	pbsys_hmi -> pbdrv_button;
+	pbsys_hmi -> pbdrv_reset;
+	pbsys_hub -> pbdrv_led;
+	pbsys_hub -> pbio_light;
+	pbsys_io -> pbdrv_ioport;
+	pbsys_status -> pbdrv_clock;
+	pbsys_status -> pbdrv_led;
+	pbsys_status -> pbio_color;
+	pbsys_status -> pbio_light;
+	pbsys_supervisor -> pbdrv_watchdog;
+	pbsys_usb -> ringbuf;
+	pbsys_user -> pbdrv_button;
+	pbsys_user -> pbio_motor;
+	pbsys_user -> pbio_stop;
+	poll_dcm	[label=poll_dcm,
+		shape=record];
+	poll_dcm -> pbdrv_gpio;
+	pupdevices_ColorDistanceSensor -> color_map;
+	pupdevices_ColorDistanceSensor -> mp;
+	pupdevices_ColorLightMatrix -> mp;
+	pupdevices_ColorSensor -> color_map;
+	pupdevices_ColorSensor -> common_LightArray;
+	pupdevices_ColorSensor -> mp;
+	pupdevices_ForceSensor -> mp;
+	pupdevices_ForceSensor -> pbio_math;
+	pupdevices_InfraredSensor -> mp;
+	pupdevices_Light -> mp;
+	pupdevices_PFMotor -> mp;
+	pupdevices_TiltSensor -> mp;
+	pupdevices_UltrasonicSensor -> common_LightArray;
+	pupdevices_UltrasonicSensor -> mp;
+	pwm_dev	[label=pwm_dev,
+		shape=record];
+	pwm_dev -> HAL_GPIO;
+	pybricks_service -> gatt;
+	robotics_DriveBase	[label=robotics_DriveBase,
+		shape=record];
+	robotics_DriveBase -> common_Control;
+	robotics_DriveBase -> mp;
+	robotics_DriveBase -> pbio_control;
+	robotics_DriveBase -> pbio_drivebase;
+	robotics_DriveBase -> pbio_motor;
+	sm -> btstack;
+	sm -> gap;
+	sm -> hci;
+	sm -> l2cap;
+	sm -> le_device;
+	timer -> pbdrv_clock;
+}

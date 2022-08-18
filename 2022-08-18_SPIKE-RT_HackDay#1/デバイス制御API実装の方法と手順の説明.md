@@ -16,6 +16,13 @@ cd spike-rt
 ### 開発環境の構築
 [docs/ja/Env.md](https://github.com/spike-rt/spike-rt/blob/main/docs/ja/Env.md)を参照．
 
+※M1 Macの場合は注意！
+
+Docker for Macの場合  
+```bash
+docker buildx build tools/ -t spike-rt-builder --platform linux/amd64
+```
+
 ### テスト
 [docs/ja/Test.md](https://github.com/spike-rt/spike-rt/blob/main/docs/ja/Test.md)を参照．
 

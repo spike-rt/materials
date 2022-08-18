@@ -1,7 +1,7 @@
 # SPIKE-RTの動作原理の説明 (30分)
 2022-08-18  
 発表者：
-名古屋大学大学院情報学研究科　組込みリアルタイムシステム研究室
+名古屋大学大学院情報学研究科　組込みリアルタイムシステム研究室 
 朱　義文（@envzhu）
 
 ## SPIKE-RTの構成
@@ -10,10 +10,12 @@
 ![SPIKE-RT構成図](artifacts/SPIKE-RT_Achitecture.svg)
 
 
-# Pybricksの解析
+# Pybricksの解析とTOPPERS/ASP3への移植
 - 全体構成図
-- Contiki
-- デバイス制御の仕組み
+- Contikiの解析
+- Contikiの移植
+- デバイス制御の仕組み　（ここから先に説明する？）
+- デバイス制御APIの移植
 
 ここでのPybrciksのコードは，[2022-08-18時点でのフォーク](
 https://github.com/spike-rt/pybricks-micropython/tree/a5357b7b72162c49e7ad74d2d67fc70addd89b3d)を参照．  
@@ -23,8 +25,8 @@ https://github.com/spike-rt/pybricks-micropython/tree/a5357b7b72162c49e7ad74d2d6
 ## 構成図
 ![Pybricksの構成図](artifacts/SPIKE-RT_Achitecture.svg)
 
-### Call Graph（参考までに）
-[PybricksCallGraph.pdf](artifacts/PybricksCallGraph.pdf)
+### Call Graph（おまけ）
+[PybricksCallGraph.pdf](artifacts/PybricksCallGraph.pdf)  
 レンダリング前のdotファイル[PybricksCallGraph.dot](artifacts/PybricksCallGraph.dot)
 
 - MicroPythonランタイムを除いて，3000の関数
@@ -32,8 +34,9 @@ https://github.com/spike-rt/pybricks-micropython/tree/a5357b7b72162c49e7ad74d2d6
   - pbio_uartdev_counter_init -> pbio_uartdev
 -  それでも見にくいのでさらにcluster化
   - pbio_uartdev -> pbio
-- その他，手動で表示する関数を調整
+- その他，手動で表示するclusterを調整
 - ただし，不正確な部分がある
+
 
 # Contiki
 - Contiki について述べる．
@@ -215,8 +218,128 @@ void pb_stm32_poll(void) {
 }
 ```
 
-### 割り込み
-`process_poll()`により対応するプロセスのポーリング要求をセットする．
+
+# ContikiのTOPPERS/ASP3への移植
+以下に着目する．
+- CPU実行権の管理
+- タイマ機能
+
+## タスクの定義
+- [asp3/target/primehub_gcc/drivers/pybricks.c](https://github.com/spike-rt/spike-rt/blob/main/asp3/target/primehub_gcc/drivers/pybricks.c)
+- 
+```c
+/*
+ * Task to run pybricks.
+ */
+int pb_main_task(int argc, char **argv) {
+	  syslog(LOG_INFO, "pybricks main task start");
+
+    // Call pybricks platform initialization function.
+    pb_SystemInit();
+        
+    // Call pybricks.
+    main();
+
+    // Never come back here because the shutdown procedure is handled by pybricks.
+
+    return 0;
+}
+```
+[bricks/primehub_asp3/main.c](https://github.com/spike-rt/pybricks-micropython/blob/spike-rt/bricks/primehub_asp3/main.c)
+
+```c
+static void stm32_main(void) {
+    while(1){
+      // C
+      pb_stm32_poll();
+    }
+}
+
+int main(int argc, char **argv) {
+    pbsys_main(stm32_main);
+    return 0;
+}
+```
+
+
+## 起床とスリープのタイミングの制御
+### Pybricksにおける起床のタイミング
+- 以下を仮定（例外については後述）
+  - イベント要求(nevents)：プロセスで要求が発生する．
+    - その後必ず実行されるので無視して良い．
+  - ポーリング要求(process_poll(), poll_requested)：割り込みハンドラで要求が発生する．
+    - 対処が必要．
+
+### 移植
+- `wup_pybricks()/slp_pybricks()`
+  - pybricksタスクに対して，`wup_tsk()/slp_tsk()`を実行する．
+
+#### 起床
+- process_poll()の修正
+  - 必ず割り込みハンドラから呼ばれる．
+  - [lib/contiki-core/sys/process.c#L372](https://github.com/spike-rt/pybricks-micropython/blob/bc51022837871af3484fcf81cdc4fce483fed4ca/lib/contiki-core/sys/process.c#L372)
+
+```c
+void
+process_poll(struct process *p)
+{
+  if(p != NULL) {
+    if(p->state == PROCESS_STATE_RUNNING ||
+       p->state == PROCESS_STATE_CALLED) {
+      p->needspoll = 1;
+      poll_requested = 1;
+      
+#if PYBRICKS_ON_ASP3
+      void wup_pybricks(void);
+      wup_pybricks();
+#endif
+    }
+  }
+}
+```
+
+
+#### スリープ
+[bricks/primehub_asp3/main.c](https://github.com/spike-rt/pybricks-micropython/blob/spike-rt/bricks/primehub_asp3/main.c)
+```c
+void pb_stm32_poll(void) {
+    while (pbio_do_one_event()) {
+    }
+    // ここで必ずnevents = 0
+
+    // poll_requested = 1 の場合，すでにwup_pybricks()が実行されているので，スリープせず，ループによりプロセスを実行．
+    // poll_requested = 0 の場合，そのままスリープする
+    void slp_pybricks(void);
+    slp_pybricks();
+}
+
+static void stm32_main(void) {
+    while(1){
+      pb_stm32_poll();
+    }
+}
+```
+
+- チェックをロック状態で行うので競合状態は発生しない．
+
+### 例外
+- process_post_sync()
+  - pbio_light_animation_start()
+    - プロセスを直接実行するため，Contikiタスク外で呼び出してはいけない．
+    - **現状のSPIKE-RTでは使用禁止！**
+- process_post()
+  - pbsys_status_set()/pbsys_status_clear()
+    - 呼び出しのあと`wup_pybricks()`を呼び明示的にContikiを実行する必要がある．
+  - その他，プロセスから呼び出される．
+
+## イベント機能の移植
+- 1msごとに`pbdrv_timer_handler()`を実行する．
+- [asp3/target/primehub_gcc/drivers/pybricks.cfg#L8](https://github.com/spike-rt/spike-rt/blob/759138a4cda70c0caa4f1e22d57ca197128bf939/asp3/target/primehub_gcc/drivers/pybricks.cfg#L8)
+
+```c
+CRE_CYC(PB_CYCHDR, { TA_STA, { TNFY_HANDLER, 0, pbdrv_timer_handler }, 1000, 0 });
+```
+
 
 # Pybricksのデバイス制御の仕組み
 - アプリケーション： Pybricksが用意したMicroPython向けAPIを呼び出すことで制御
@@ -254,7 +377,12 @@ void pb_stm32_poll(void) {
 - プロセス：上記のUARTによる回転情報の取得に加え，共有変数の値からタイマPWMによる制御（同期的）を行う．
 - API：モータ制御に必要な計算を行い共有変数を更新する．
 
-# API
+# デバイス制御APIの移植
+MicroPythonランタイム依存のコードを修正する．
+詳細は
+[デバイス制御API実装の方法と手順の説明.md#pybricksのmicropython向けapiをspike-rtに移植する上での注意点](デバイス制御API実装の方法と手順の説明.md#pybricksのmicropython向けapiをspike-rtに移植する上での注意点)で説明．
+
+## 現状
 - ※1 ... Pybricks の関数を呼び出すことで動作する場合を含む．
 - ※2 ... 動作確認にはしてないが動作することが期待される．
 
@@ -298,7 +426,6 @@ void pb_stm32_poll(void) {
 - 割り込み禁止
 - プライオリティ・シーリング（タスクの優先度を一時的に上げる）
 - 優先度を同レベルに設定する．
-  - 
 
 ### SPIKE-RTの場合
 - Contiki上のプロセスはプリエンプションが生じないことが前提で実装されているため，ロックされない．

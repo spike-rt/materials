@@ -5,6 +5,14 @@
 朱　義文（@envzhu）
 
 ## SIKE-RTのビルドとテスト
+### コードの入手
+以下により，ソースコードをクローンする．
+```bash
+git clone --recursive https://github.com/spike-rt/spike-rt.git
+cd spike-rt
+```
+以下，特に断りの無い限りトップディレクトリが`spike-rt` のディレクトリであるとする．
+
 ### 開発環境の構築
 [docs/ja/Env.md](https://github.com/spike-rt/spike-rt/blob/main/docs/ja/Env.md)を参照．
 
